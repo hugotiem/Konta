@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button fill="clear" slot="start" (click)="close(null)">
+      <ion-label>Cancel</ion-label>
+    </ion-button>
+    <ion-title>Selectionner produit</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar disabled animated showCancelButton="focus"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-list-header>
+      <ion-title>Produits</ion-title>
+    </ion-list-header>
+
+    <ion-item-group *ngFor="let produit of produits">
+      <ion-item [disabled]="produit.quantite == 0" button detail="false" (click)="close(produit)" >
+        <ion-label> {{ produit.title }} </ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-list-header>
+      <ion-title>Formules</ion-title>
+    </ion-list-header>
+
+    <ion-item-group *ngFor="let formule of formules">
+      <ion-item [disabled]="!formule.disponible" button detail="false" (click)="close(formule)" >
+        <ion-label> {{ formule.title }} </ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-list-header>
+      <ion-title>Extras</ion-title>
+    </ion-list-header>
+
+    <ion-item-group *ngFor="let extra of extras">
+      <ion-item [disabled]="extra.quantite == 0" button detail="false" (click)="close(extra)" >
+        <ion-label> {{ extra.title }} </ion-label>
+      </ion-item>
+    </ion-item-group>
+
+  </ion-list>
+</ion-content>

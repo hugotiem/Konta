@@ -1,0 +1,136 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-title *ngIf="!pageName">
+      Stonks
+    </ion-title>
+    <ion-title *ngIf="pageName">
+      Balence
+    </ion-title>
+    <ion-button class="toolbar-button" slot="end" fill="clear" (click)="goToOrder()">
+      <ion-icon name="reader"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="stats-content" color="light">
+
+  <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="0">
+      <ion-icon name="receipt"></ion-icon>
+      <ion-label>Stonks</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-icon name="swap-horizontal"></ion-icon>
+      <ion-label>Balence</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-slides id="content" #slides [options]="slidesOptions" (ionSlideWillChange)="slideChanged(slides)" (ionSlidesDidLoad)="slideChanged(slides)">
+
+    <!-- STONKS PAGE -->
+
+    <ion-slide id="Stonks-page">
+      
+      <ion-list lines="full">
+        <ion-list *ngFor="let item of items.reverse(); let i = index">
+
+          <ion-list *ngFor="let share of sharing.reverse()">
+            <ion-item *ngIf="share.last == item">
+              <ion-label>Départagée !</ion-label>
+              <ion-datetime disabled displayFormat="DD/MM/YYYY" value="{{ share.date }}"></ion-datetime>
+            </ion-item>
+          </ion-list>
+          
+          <ion-item button detail="false" (click)="goTo(item)" routerDirection="forward">
+            <div slot="start" style="width: 60%">
+              <ion-label> {{ item.title }} </ion-label>
+              <ion-note style="font-size: 12pt;" slot="end"> livré par <strong> {{ item.order[0].name }} </strong> </ion-note>
+            </div>
+            <div slot="end" style="text-align: right; margin-left: 0;">
+              <ion-label> €{{ (+item.price).toFixed(2) }} </ion-label>
+              <ion-datetime disabled displayFormat="DD/MM/YYYY" value="{{ item.date }}"></ion-datetime>
+            </div>
+          </ion-item>
+
+        </ion-list>
+
+        <ion-item *ngIf="sharing[0] != undefined">
+          <ion-label>Départagée</ion-label>
+          <ion-icon name="checkmark" slot="start"></ion-icon>
+          <ion-datetime disabled displayFormat="DD/MM/YYYY" value="{{ sharing[0].date }}"></ion-datetime>
+        </ion-item>
+
+        <ion-item color="light  " lines="none">
+
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <!-- BALENCE PAGE -->
+
+    <ion-slide id="balence-page">
+      <ion-list lines="full">
+
+        <ion-item mode="md" style="height: 50px;" button lines="none" (click)="showBenef()">
+          <ion-title size="large" style="text-align: center;">
+            Total : €{{ total.toFixed(2) }}
+          </ion-title>
+        </ion-item>
+
+        <ion-item id="benef" lines="none">
+          <ion-title style="text-align: center;">
+            Bénéfice : €{{ benef.toFixed(2) }}
+          </ion-title>
+        </ion-item>
+
+        <ion-item button *ngFor="let a of admin" detail="false" color="light">
+          <div class="item-content">
+            <ion-label class="label"> {{ a.name }} </ion-label>
+            <div class="progress-bar">
+              <ion-progress-bar slot="start" value="{{ (getPourcent(a.tab.rapport, total)/100).toFixed(2) }}" color="warning" reversed="true"></ion-progress-bar>
+              <ion-label> {{ getPourcent(a.tab.rapport, total).toFixed(2) }}% </ion-label>
+              <ion-progress-bar class="right" style="position: absolute;" value="{{ (getPourcent(a.tab.total, total)/100).toFixed(2) }}"></ion-progress-bar>
+              <ion-label class="right"> {{ getPourcent(a.tab.total, total).toFixed(2) }}%</ion-label>
+
+              <ion-note class="up">Somme rapporté</ion-note>
+              <ion-note class="right up">Somme gagné</ion-note>
+
+              <ion-note class="down">€{{ a.tab.rapport.toFixed(2) }} </ion-note>
+              <ion-note class="right down">€{{ a.tab.total.toFixed(2) }} </ion-note>
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item-divider id="bottom-item">
+
+        </ion-item-divider>
+
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
+  
+</ion-content>
+
+<ion-fab id="tricount-add" *ngIf="!pageName" vertical="bottom" horizontal="center" >
+  <ion-fab-button (click)="addNewExpModal()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>  
+
+<ion-footer >
+  <ion-toolbar *ngIf="!pageName" id="tricount-toolbar">
+    <div slot="start" style="text-align: left;">
+      <ion-note style="font-size: small;">MY TOTAL</ion-note>
+      <br>
+      <ion-label style="font-size: small; font-weight: bold;">€ -- . --</ion-label>
+    </div>
+    <div slot="end">
+      <ion-note style="font-size: small;">TOTAL STONKS</ion-note>
+      <br>
+      <ion-label style="font-size: small; font-weight: bold;">€{{ total.toFixed(2) }}</ion-label>
+    </div>
+  </ion-toolbar>
+  <ion-button color="light" expand="full" (click)="confirmAlert()" *ngIf="pageName">
+    <ion-label>Départager</ion-label>
+  </ion-button>
+</ion-footer>

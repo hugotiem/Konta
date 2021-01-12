@@ -1,0 +1,99 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button fill="clear" (click)="close(undefined)" slot="start">
+      <ion-label>Annuler</ion-label>
+    </ion-button>
+    <ion-title>Nouveau</ion-title>
+    <ion-button (click)="update()" slot="end" fill="clear">
+      <ion-label *ngIf="!isAlreadySaved">Ajouter</ion-label>
+      <ion-label *ngIf="isAlreadySaved">Save</ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-toolbar>
+    <ion-title size="large">Ajouter item</ion-title>
+    <ion-button slot="end" fill="clear" style="--color: black" (click)="openOptionsPopover($event)">
+      <ion-icon name="chevron-down"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  
+  <ion-list class="content" lines="none">
+
+    <ion-item mode="ios">
+      <ion-input [(ngModel)]="title" type="text" placeholder="Title"></ion-input>
+      <span class="input-feet"></span>
+    </ion-item>  
+
+    <ion-list *ngIf="category == 'formules'">
+      <ion-item-sliding #slide *ngFor="let formule of formuleContent; let i = index">
+        <ion-item id="formule-{{ i }}-item" class="items" (click)="openProduitsList($event, i)">
+          <ion-note slot="start">Item {{ i + 1 }} : </ion-note>
+          <ion-label> {{ formule.title }} </ion-label>
+          <span class="input-feet"></span>
+          <ion-icon name="chevron-down" class="focus-icon" size="small" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item-options side="end" style="width: 70px;" (click)="delete(i, slide)">
+          <ion-item-option color="danger" style="width: 100%;">
+            <ion-icon style="position: absolute; top: 25%; right: 50%; transform: translate(50%, -50%);" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item lines="full" (click)="openQuantityModal('qte-' + i + '-item', formule)" id="qte-{{i}}-item">
+          <ion-note>Quantité : </ion-note>
+          <ion-label slot="end" style="text-align: end;"> {{formule.quantite}} </ion-label>
+          <span class="input-feet"></span>
+          <ion-icon name="chevron-down" class="focus-icon" size="small" slot="end"></ion-icon>
+        </ion-item>
+
+      </ion-item-sliding>
+
+      <ion-item>
+        <ion-button fill="clear" expand="block" (click)="addItems()">
+          <ion-icon name="add" slot="start"></ion-icon>
+          <ion-label>Ajouter item</ion-label>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-item mode="ios" disabled>
+      <ion-label>Catégorie : </ion-label>
+     <ion-label slot="end" style="text-align: end;"> {{ category }} </ion-label>
+      <span class="input-feet"></span>
+    </ion-item>
+
+    <ion-item mode="ios">
+      <ion-input [disabled]="category == 'formules'" [(ngModel)]="firstPrice" type="number" placeholder="prix à l'achat"></ion-input>
+      <span class="input-feet second-size"></span>
+      <ion-label>EUR</ion-label>
+      <ion-icon size="small" name="chevron-down"></ion-icon>
+    </ion-item>
+
+    <ion-item mode="ios">
+      <ion-input [(ngModel)]="price" type="number" placeholder="prix à la revente"></ion-input>
+      <span class="input-feet second-size"></span>
+      <ion-label>EUR</ion-label>
+      <ion-icon size="small" name="chevron-down"></ion-icon>
+    </ion-item>
+
+    <ion-item button *ngIf="category != 'formules'" id="modal" detail="false" (click)="openQuantityModal('modal', undefined)">
+      <ion-note>Qantité : </ion-note>
+      <ion-label slot="end" style="text-align: right;">{{ stock }}</ion-label>
+      <ion-icon name="chevron-down" class="focus-icon" size="small" slot="end"></ion-icon>
+      <span class="input-feet"></span>
+    </ion-item>
+
+    <ion-button expand="block">
+      <ion-icon name="image" slot="start"></ion-icon>
+      Importer une image
+    </ion-button>
+
+    <ion-item lines="none" *ngIf="error">
+      <ion-label style="font-size: 10pt;" color="danger">*REMPLIE TOUS LES CHAMPS SALE FDP</ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

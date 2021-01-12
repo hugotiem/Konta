@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar style="--border-style: none;">
+    <ion-button fill="clear" slot="start" (click)="goBack()">
+      <ion-icon name="chevron-back"></ion-icon>
+    </ion-button>
+    <ion-title>Détail</ion-title>
+    <ion-button fill="clear" slot="end" (click)="openEdit()">
+      <ion-label>Edit</ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+
+    <ion-item-divider>
+      
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-label>Nom :</ion-label>
+      <ion-note slot="end" style="text-align: end;"> {{ item.name }} </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Prix à l'achat :</ion-label>
+      <ion-note slot="end" style="text-align: end;"> €{{ (+item.firstPrice).toFixed(2) }} </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>prix à la revente :</ion-label>
+      <ion-note slot="end" style="text-align: end;"> €{{ (+item.price).toFixed(2) }} </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Quantité :</ion-label>
+      <ion-note slot="end" style="text-align: end;"> {{ item.stock }} </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Type : </ion-label>
+      <ion-note *ngIf="cat == 'formules'" slot="end" style="text-align: end;">Formule</ion-note>
+      <ion-note *ngIf="cat == 'produits'" slot="end" style="text-align: end;">Produit</ion-note>
+      <ion-note *ngIf="cat == 'extras'" slot="end" style="text-align: end;">Extras</ion-note>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

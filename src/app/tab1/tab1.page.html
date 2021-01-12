@@ -1,0 +1,78 @@
+<ion-header mode="ios" [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      KOИTA
+    </ion-title>
+    <ion-button class="toolbar-button" slot="end" fill="clear">
+      <ion-icon name="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="total">
+    <ion-card id="total-card">
+      <ion-card-subtitle mode="ios">total :</ion-card-subtitle>
+      <ion-card-title> 254 € </ion-card-title>
+    </ion-card>
+  </div>
+
+  <ion-card id="notificaton">   
+    <ion-card-header>
+      <ion-card-title>Général</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-card color="light">
+          <ion-card-header style="display: flex; justify-content: space-between ;">
+            <ion-card-subtitle mode="ios">produit vendu !</ion-card-subtitle> 
+            <ion-note>Il y a 12 min</ion-note>
+          </ion-card-header>
+          <hr style="height: 1px; background: grey; margin: 0;"/>
+          <ion-card-content>
+            <p>3 produit(s) Marlboro vendu  <ion-icon name="arrow-forward"></ion-icon>  45 € gagné !</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card color="light">
+          <ion-card-header style="display: flex; justify-content: space-between;">
+            <ion-card-subtitle mode="ios"> livraison </ion-card-subtitle> 
+            <ion-note>Il y a 45 min</ion-note>
+          </ion-card-header>
+          <hr style="height: 1px; background: grey; margin: 0;"/>
+          <ion-card-content>
+            <p>Marvyn à parcourut 21 Km.</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Inventaire</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-card color="light">
+          <ion-card-header>
+            <ion-card-subtitle mode="ios"></ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+
+        <ion-card color="light">
+
+        </ion-card>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+</ion-content>

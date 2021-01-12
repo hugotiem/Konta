@@ -1,0 +1,18 @@
+
+<ion-list lines="full" style="overflow: scroll;">
+  <ion-radio-group>
+    <div *ngFor="let item of items">
+      <ion-item *ngIf="!item.alreadyUsed" mode="ios" lines="none" style="width: 100%;" (click)="saveItemsInFormule($event, item)">
+        <ion-label> {{ item.title }} </ion-label>
+        <ion-radio slot="end" color="primary"></ion-radio>
+    </ion-item>
+  </div>
+  <div *ngFor="let extra of extras">
+    <ion-item *ngIf="!extra.alreadyUsed" mode="ios" lines="none" style="width: 100%;" (click)="saveItemsInFormule($event, extra)">
+      <ion-label> {{ extra.title }} </ion-label>
+      <ion-radio slot="end" color="primary"></ion-radio>
+  </ion-item>
+</div>
+  </ion-radio-group>
+
+</ion-list>

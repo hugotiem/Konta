@@ -1,0 +1,134 @@
+/****    GENERAL    ****/
+
+.small-margin {
+    margin: 10px;
+}
+
+/****    HEADER    ****/
+
+.toolbar-button {
+    --color: black;
+    margin: 0 10px;
+    --padding-start: 0;
+    --padding-end: 0;
+}   
+
+/****    CONTENT    ****/ 
+
+ion-content {
+    --overflow: hidden;
+}
+
+ion-slide {
+    overflow: scroll;
+}
+
+#content {
+    height: 100%;
+
+    ion-slide{
+        display: block;
+    }
+}
+
+#Stonks-page {
+    ion-item {
+        --padding-top: 5px; 
+        --padding-bottom: 5px;
+
+        div {
+            ion-label {
+                margin-bottom: 5px;
+            }
+        }
+        ion-datetime {
+            font-size: small; 
+            --padding-end: 0; 
+            --padding-start: 0; 
+            --padding-top: 0; 
+            --padding-bottom: 0;
+        }
+    }
+}
+
+#balence-page {
+
+    ion-item {
+        --padding-start: 0;
+        --pading-end: 0;
+    }
+
+    .item-content {
+        width: 100%;
+        padding: 10px 0 10px 0;
+
+        ion-label{
+            margin: 15px;
+        }
+
+        .label{
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            display: flex;
+            width: 100%;
+            padding-bottom: 20px;
+
+            ion-progress-bar {
+                width: 50%; 
+                height: 20px;
+            }
+
+            ion-label {
+                position: absolute; 
+                bottom: 15px;
+            }
+
+            ion-note {
+                font-size: small; 
+                position: absolute; 
+                margin: 5px;
+            }
+
+            .up {
+                bottom: 55px; 
+            }
+
+            .down {
+                bottom: 0; 
+            }
+
+            .right {
+                right: 0;
+            }
+
+        }
+        
+    }
+
+    #bottom-item {
+        --background: white; 
+    }
+
+}
+
+.ios #bottom-item {
+    height: 50px;
+}
+
+.md #bottom-item {
+    height: 65px;
+}
+
+#benef {
+    height: 0;
+
+    transition-property: height;
+    transition-duration: 0.2s;
+}
+
+.open {
+    height: 50px !important;
+}

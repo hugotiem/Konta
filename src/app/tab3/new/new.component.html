@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar style="--border-style: none">
+    <ion-button fill="clear" slot="start" (click)="close()">
+      <ion-label>Annuler</ion-label>
+    </ion-button>
+    <ion-title>Nouveau</ion-title>
+    <ion-button fill="clear" slot="end" (click)="save()">
+      <ion-label>Terminer</ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content" [fullscreen]="true">
+
+  <ion-toolbar style="margin-top: 10px; z-index: 0;">
+    <ion-title size="large" style="padding-left: 0">Livraison</ion-title>
+    <ion-button slot="end" fill="clear" style="--color: black" (click)="openOptionPopover($event)">
+      <ion-icon name="chevron-down"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+  <ion-list lines="none">
+
+    <ion-item class="full">
+      <ion-input [(ngModel)]="title" type="text" required autocapitalize="on" autocorrect="on" [value]="title" placeholder="Titre"></ion-input>
+      <span class="input-feet"></span>
+    </ion-item>
+
+    <ion-list *ngFor="let admin of delivery; let i = index">
+
+      <ion-item mode="ios" id="no-input-{{i}}" class="full" required (click)="namesPopover($event, i)">
+        <ion-label *ngIf="admin.name != ''"> {{ admin.name }} </ion-label>
+        <ion-note *ngIf="admin.name == ''">Nom du Livreur</ion-note>
+        <span class="input-feet"></span>
+        <ion-icon slot="end" class="focus-icon" size="small" name="chevron-down"></ion-icon>
+      </ion-item>
+
+      <ion-item-sliding #slide *ngFor="let item of admin.items; let j = index">
+
+        <ion-item mode="ios" id="formule-{{ i }}{{ j }}-item" class="items" class="full">
+          <ion-input [(ngModel)]="item.title" type="text" required autocapitalize="on" autocorrect="on" [value]="item.title" placeholder="Item {{ j + 1 }} :"></ion-input>
+          <span class="input-feet second-size"></span>
+          <ion-button class="modal" fill="clear" slot="end" (click)="itemsModal(admin, item)">
+            <ion-icon size="large" name="pricetag"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <ion-item-options side="end" style="width: 70px;" (click)="delete(item, i, j)">
+          <ion-item-option color="danger" style="width: 100%;">
+            <ion-icon style="position: absolute; top: 25%; right: 50%; transform: translate(50%, -50%);" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item mode="ios" class="full" id="qte-{{i}}-item" lines="full">
+          <ion-label>Quantité :</ion-label>
+          <span class="input-feet second-size"></span>
+          <div slot="end" style="display: flex; margin: 0;position: relative;">
+            <ion-chip style="margin-right: 20px; padding: 7px" (click)="remove(item, admin)">
+              <ion-icon style="margin: 0;" size="small" name="remove"></ion-icon>
+            </ion-chip>
+            <ion-label style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);"> {{ item.quantite }} </ion-label>
+            <ion-chip style="margin-left: 20px; padding: 7px" (click)="add(item, admin)">
+              <ion-icon style="margin: 0" name="add"></ion-icon>
+            </ion-chip>
+          </div>
+        </ion-item>
+        
+      </ion-item-sliding>
+
+      <ion-item>
+        <ion-chip (click)="addItems(admin.items)"> 
+          <ion-icon name="add"></ion-icon>
+          <ion-label>Ajouter item</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item mode="ios" class="full" >
+        <ion-input [(ngModel)]="admin.firstPrice" type="number" enterkeyhint="done" inputmode="decimal" [value]="admin.firstPrice" placeholder="Prix achat"></ion-input>
+        <ion-label>EUR</ion-label>
+        <span class="input-feet"></span>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-item *ngIf="type == 'share'">
+      <ion-chip (click)="addAdmin()"> 
+        <ion-icon name="add"></ion-icon>
+        <ion-label>Ajouter livreur</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-item mode="ios" class="full" >
+      <ion-input [(ngModel)]="price" type="number" enterkeyhint="done" inputmode="decimal" [value]="price" placeholder="Prix revente"></ion-input>
+      <span class="input-feet"></span>
+      <ion-label>EUR</ion-label>
+    </ion-item>
+
+    <ion-item mode="ios" class="full">
+      <ion-input [(ngModel)]="clientName" type="text" required autocapitalize="on" autocorrect="on" [value]="clientName" placeholder="Nom du client"></ion-input>
+      <span class="input-feet"></span>
+    </ion-item>
+
+    <ion-item mode="ios" class="full">
+      <ion-input [(ngModel)]="km" type="number" enterkeyhint="done" inputmode="decimal" [value]="km" placeholder="Km parcourut"></ion-input>
+      <span class="input-feet first-size"></span>
+      <ion-label style="margin-right: 0" slot="end">KM</ion-label>
+    </ion-item>
+
+    <ion-item id="date-item" class="full">
+      <ion-datetime (ionBlur)="activated()" [(ngModel)]="date" required [value]="date" display-timezone="utc"></ion-datetime>
+      <span class="input-feet"></span> 
+      <ion-icon slot="end" class="focus-icon" size="small" name="chevron-down"></ion-icon>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

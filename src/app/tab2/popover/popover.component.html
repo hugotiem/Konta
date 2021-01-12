@@ -1,0 +1,15 @@
+<ion-list>
+  <ion-radio-group>
+    <ion-list-header>
+      <ion-label>Trier par :</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let item of items">
+      <ion-label style="font-size: 12pt;"> {{ item.name }} </ion-label>
+      <ion-icon *ngIf="item.value == 'asc-stock'" slot="end" size="small" name="arrow-up"></ion-icon>
+      <ion-icon *ngIf="item.value == 'desc-stock'" slot="end" size="small" name="arrow-down"></ion-icon>
+      <ion-radio color="primary" slot="end" value="{{ item.value }}"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+

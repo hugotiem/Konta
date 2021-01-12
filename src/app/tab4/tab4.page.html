@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Paramètres
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  
+  <ion-list lines="full">
+
+    <ion-item-divider color="light">
+
+    </ion-item-divider>
+
+    <ion-item disabled button id="profil">
+      <ion-avatar>
+        <img src="https://p7.hiclipart.com/preview/340/956/944/computer-icons-user-profile-head-ico-download.jpg">
+      </ion-avatar>
+      <ion-label>Profil</ion-label> <ion-note slot="end">(soon)</ion-note>
+    </ion-item>
+
+    <ion-item-divider color="light">
+
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-label>Activer/Desactiver Dark Mode</ion-label>
+      <ion-toggle slot="end" (ionChange)="toggleColorTheme($event)" [checked]="checked"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider color="light">
+
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-label *ngIf="!opened">Ouvrir l'app</ion-label>
+      <ion-label *ngIf="opened">Fermer l'app</ion-label>
+      <ion-toggle slot="end" (ionChange)="toggleOpenStore($event)" [checked]="opened"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider color="light">
+
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-label>Ouverture/Fermeture auto.</ion-label>
+      <ion-toggle slot="end"></ion-toggle>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Heure d'ouverture de l'app</ion-label>
+      <ion-datetime #start name="start" displayFormat="HH:mm" (ionChange)="setHour(start)"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Heure de fermeture de l'app</ion-label>
+      <ion-datetime #end name="end" displayFormat="HH:mm" (ionChange)="setHour(end)"></ion-datetime>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
