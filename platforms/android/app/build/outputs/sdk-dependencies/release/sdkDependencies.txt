@@ -1,0 +1,19 @@
+# List of SDK dependencies of this app, this information is also included in an encrypted form in the APK.
+# For more information visit: https://d.android.com/r/tools/dependency-metadata
+
+library {
+  maven_library {
+    groupId: "androidx.annotation"
+    artifactId: "annotation"
+    version: "1.0.0"
+  }
+  digests {
+    sha256: "\v\252\351u_|\257R\252\200\315\0042K\221\272\223\257U\324\321\321}\314\232{S\331\236\367\300\026"
+  }
+}
+library_dependencies {
+}
+module_dependencies {
+  module_name: "base"
+  dependency_index: 0
+}
